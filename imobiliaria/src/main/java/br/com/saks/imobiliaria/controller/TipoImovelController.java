@@ -3,6 +3,7 @@ package br.com.saks.imobiliaria.controller;
 
 import br.com.saks.imobiliaria.model.TipoImovel;
 import br.com.saks.imobiliaria.repository.TipoImovelRepository;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,11 +21,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class TipoImovelController {
     @Autowired
     private TipoImovelRepository tipoImovelRepository;
- @GetMapping(value="/{id}")
+@GetMapping
+    public List<TipoImovel> listarTodos() {
+        return tipoImovelRepository.findAll();
+    }    
+@GetMapping(value="/{id}")
     public TipoImovel listarPeloId(@PathVariable Long id) {
         Optional<TipoImovel> tipoImovelResponse = tipoImovelRepository.findById(id);
         TipoImovel tipoImovel = tipoImovelResponse.get();
-        
         return tipoImovel;
     }
 @PostMapping
